@@ -28,7 +28,7 @@ else res.send(result).status(200)
 router.post('/', async (req, res)=>{
     const collection = await db.collection('sales')
     const newDocument = req.body // it should have unique key value
-console.log(newDocument, req.body)
+// console.log(newDocument, req.body)
 newDocument.date = new Date() // gives date and time of creating new database
 const result = await collection.insertOne(newDocument)
 
@@ -38,9 +38,28 @@ res.send(result).status(204)
 
 })
 //Patch: Updating one data
+router.patch('/:id', async (req, res)=>{
+    const query = {_id: new ObjectId(req.params.id)}
+    const updates = {
+        $push: req.body
+     }
+    console.log(updates);
+    const collection = await db.collection('sales')
+    const result = await collection.updateOne(query, updates);
+
+
+    res.send(result).status(200)
+})
 
 
 //Delete: Deleting one data
+router.delete('/:id', async (req, res) =>{
+    const query = {_id: new ObjectId(req.params.id)}
+    const collection = db.collection('sales')
+    const result = await collection.deleteOne(query)
+   
+    res.send(result).status(200)
+})
 
 
 

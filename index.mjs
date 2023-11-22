@@ -2,7 +2,7 @@ import express from 'express'
 const app = express()
 const port = 3000
 
-import supplies from './routes/supplies.mjs'
+import supplies8 from './routes/supplies.mjs'
 
 
 //middleware
